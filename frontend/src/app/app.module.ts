@@ -9,6 +9,9 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {HttpClientModule} from "@angular/common/http";
+import {RouterModule} from "@angular/router";
+import {clientPageUrl, homePageUrl, notFoundPageUrl} from "./models/links";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -23,6 +26,14 @@ import {HttpClientModule} from "@angular/common/http";
     MatTableModule,
     MatSortModule,
     MatPaginatorModule
+    RouterOutlet,
+    RouterModule.forRoot([
+      {path: homePageUrl, component: HomePageComponent},
+      {path: clientsPageUrl, component: ClientsComponent},
+      {path: notFoundPageUrl, component: NotFoundPage}
+    ]),
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
