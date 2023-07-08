@@ -9,14 +9,24 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {HttpClientModule} from "@angular/common/http";
-import {RouterModule} from "@angular/router";
-import {clientPageUrl, homePageUrl, notFoundPageUrl} from "./models/links";
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { HomePageComponent } from './components/home-page/home-page.component';
+import {RouterModule, RouterOutlet} from "@angular/router";
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {clientsPageUrl, homePageUrl, notFoundPageUrl} from "./models/links";
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientsComponent
+    ClientsComponent,
+    TopBarComponent,
+    NavigationBarComponent,
+    HomePageComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,12 +35,13 @@ import {MatIconModule} from "@angular/material/icon";
     MatInputModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonToggleModule,
     RouterOutlet,
     RouterModule.forRoot([
       {path: homePageUrl, component: HomePageComponent},
       {path: clientsPageUrl, component: ClientsComponent},
-      {path: notFoundPageUrl, component: NotFoundPage}
+      {path: notFoundPageUrl, component: NotFoundPageComponent}
     ]),
     MatIconModule,
     MatButtonModule
