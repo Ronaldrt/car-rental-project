@@ -75,32 +75,58 @@
 </div>
 
 <div>
-  <form [formControl]="clientForm">
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
     <label for="name">Name:</label>
-    <input formControlName="name" type="text" id="name">
+    <input [formControl]="name" type="text" id="name">
+    <div class="alert" *ngIf="name.invalid && (name.touched || name.dirty)">
+      <div *ngIf="name.errors?.['required']">Name field is required</div>
+      <div *ngIf="name.errors?.['minlength']">Minimum length of field is 2</div>
+    </div>
 
     <label for="surname">Surname:</label>
-    <input formControlName="surname" type="text" id="surname">
+    <input [formControl]="surname" type="text" id="surname">
+    <div class="alert" *ngIf="surname.invalid && (surname.touched || surname.dirty)">
+      <div *ngIf="surname.errors?.['required']">Surname field is required</div>
+      <div *ngIf="surname.errors?.['minlength']">Minimum length of field is 2</div>
+    </div>
 
+<!--    TODO: improve validation of phone format-->
     <label for="phone">Phone:</label>
-    <input formControlName="phone" type="text" id="phone">
+    <input [formControl]="phone" type="text" id="phone">
+    <div class="alert" *ngIf="phone.invalid && (phone.touched || phone.dirty)">
+      <div *ngIf="phone.errors?.['required']">Phone field is required</div>
+      <div *ngIf="phone.errors?.['minlength']">Minimum length of field is 7</div>
+    </div>
+
 
     <label for="email">Email:</label>
-    <input formControlName="email" type="text" id="email">
+<!--    <input formControlName="email" type="text" id="email">-->
+    <input [formControl]="email" type="text" id="email">
+    <div class="alert" *ngIf="email.invalid && (email.touched || email.dirty)">
+      <div *ngIf="email.errors?.['required']">Email field is required</div>
+      <div *ngIf="email.errors?.['email']">Wrong email format</div>
+    </div>
 
     <label for="address">Address:</label>
-    <input formControlName="address" type="text" id="address">
+    <input [formControl]="address" type="text" id="address">
 
-    <label for="hasDrivingLicence">Has driving licence:</label>
-    <input formControlName="hasDrivingLicence" type="text" id="hasDrivingLicence">
+    <label for="hasDrivingLicense">Has driving license:</label>
+    <input [formControl]="drivingLicense" type="text" id="hasDrivingLicense">
+    <div class="alert" *ngIf="drivingLicense.invalid && (drivingLicense.touched || drivingLicense.dirty)">
+      <div *ngIf="drivingLicense.errors?.['required']">Driving license field is required</div>
+    </div>
 
-    <label for="registrationDateTime">Registration date time:</label>
-    <input formControlName="registrationDateTime" type="text" id="registrationDateTime">
-
+<!--    TODO: fix validation-->
     <label for="dateOfBirth">Date of birth:</label>
-    <input formControlName="dateOfBirth" type="text" id="dateOfBirth">
+    <input [formControl]="dateOfBirth" type="text" id="dateOfBirth">
+    <div class="alert" *ngIf="dateOfBirth.invalid && (dateOfBirth.touched || dateOfBirth.dirty)">
+      <div *ngIf="dateOfBirth.errors?.['required']">Date of birth field is required</div>
+      <div *ngIf="dateOfBirth.errors?.['minlength']">Minimum length of field is 10</div>
+    </div>
 
-    <button type="submit" mat-flat-button color="warn">Submit</button>
+    <button [disabled]="!clientForm.valid" type="submit" mat-flat-button color="warn">Submit</button>
+    <button type="reset" mat-flat-button color="warn">Reset</button>
+<!--    TODO: add progress indicator-->
   </form>
 </div>
 

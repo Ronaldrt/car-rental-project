@@ -25,7 +25,7 @@ class ClientServiceTest {
     }
 
     @Test
-    void creatingNewClient(){
+    void creatingNewClient() {
         // create new client
         Client client = Client.builder()
                 .name("mark")
@@ -35,7 +35,6 @@ class ClientServiceTest {
                 .address("uk")
                 .dateOfBirth(LocalDate.of(1990, Month.JANUARY, 7))
                 .build();
-
         // save it
         var saved = clientService.saveClient(client);
 
