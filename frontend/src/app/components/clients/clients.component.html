@@ -74,4 +74,34 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
 
+<div>
+  <form [formControl]="clientForm">
+    <label for="name">Name:</label>
+    <input formControlName="name" type="text" id="name">
+
+    <label for="surname">Surname:</label>
+    <input formControlName="surname" type="text" id="surname">
+
+    <label for="phone">Phone:</label>
+    <input formControlName="phone" type="text" id="phone">
+
+    <label for="email">Email:</label>
+    <input formControlName="email" type="text" id="email">
+
+    <label for="address">Address:</label>
+    <input formControlName="address" type="text" id="address">
+
+    <label for="hasDrivingLicence">Has driving licence:</label>
+    <input formControlName="hasDrivingLicence" type="text" id="hasDrivingLicence">
+
+    <label for="registrationDateTime">Registration date time:</label>
+    <input formControlName="registrationDateTime" type="text" id="registrationDateTime">
+
+    <label for="dateOfBirth">Date of birth:</label>
+    <input formControlName="dateOfBirth" type="text" id="dateOfBirth">
+
+    <button type="submit" mat-flat-button color="warn">Submit</button>
+  </form>
+</div>
+
 
