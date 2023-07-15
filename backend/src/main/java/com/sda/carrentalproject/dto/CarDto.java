@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 
 @Builder
-public record CarDto(Long id,
+public record CarDto(
+                    Long id,
 
                      String brand,
 
@@ -21,6 +22,6 @@ public record CarDto(Long id,
 
                      boolean available,
 
-                     PriceList priceList
+                     long pricePerDayInEuroCents
 ) {
 }
