@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {LoginService} from "../../services/login-service/login.service";
 import {Router} from "@angular/router";
 import {homePageUrl} from "../../models/links";
+import {FormControl, FormGroup} from "@angular/forms";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,6 +12,15 @@ export class LoginComponent {
   message! : string;
   isLoggedIn!: boolean;
   isLoggedOut! :boolean;
+
+  loginForm = new FormGroup({
+    login: new FormControl(''),
+    password: new FormControl('')
+  })
+
+  loginControl = this.loginForm.controls.login;
+  passwordControl = this.loginForm.controls.password;
+
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -32,7 +42,8 @@ export class LoginComponent {
     console.log('inside login method()');
     this.message = "Trying to login....";
     this.loginService
-      .login('me', 'you')
+      .login(this.loginForm.controls.login.value as string,
+        this.loginForm.controls.password.value as string)
       .subscribe(value => {
         this.updateStatus();
         this.router.navigateByUrl(homePageUrl)
