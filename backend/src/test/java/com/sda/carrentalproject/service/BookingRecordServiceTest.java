@@ -6,6 +6,7 @@ import com.sda.carrentalproject.dto.CarBookingRequestDto;
 import com.sda.carrentalproject.exception.PeriodCalculationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -44,5 +45,18 @@ class BookingRecordServiceTest {
                 .build();
         // TODO: check the message
         Assertions.assertThrows(PeriodCalculationException.class, () -> service.calculateBookingPrice(bookingRequestForTwoDays, carToBook));
+    }
+
+    @Test
+    void calculateBookingPriceForTooShortPeriod(){
+        CarBookingRequestDto bookingRequestDtoForZeroDays =
+                new CarBookingRequestDto(0L,0L,LocalDate.now(), LocalDate.now());
+
+        Car carToBook = Car.builder()
+                .priceList(new PriceList(15_000))
+                .build();
+
+        Assertions.assertThrows(PeriodCalculationException.class,
+                () -> service.calculateBookingPrice(bookingRequestDtoForZeroDays, carToBook));
     }
 }
