@@ -44,7 +44,9 @@ class BookingRecordServiceTest {
                 .priceList(new PriceList(15_000))
                 .build();
         // TODO: check the message
-        Assertions.assertThrows(PeriodCalculationException.class, () -> service.calculateBookingPrice(bookingRequestForTwoDays, carToBook));
+        PeriodCalculationException exc = Assertions.assertThrows(PeriodCalculationException.class, () -> service.calculateBookingPrice(bookingRequestForTwoDays, carToBook));
+
+        Assertions.assertEquals("End date is before starting date", exc.getMessage());
     }
 
     @Test
@@ -56,7 +58,8 @@ class BookingRecordServiceTest {
                 .priceList(new PriceList(15_000))
                 .build();
 
-        Assertions.assertThrows(PeriodCalculationException.class,
+        PeriodCalculationException exc = Assertions.assertThrows(PeriodCalculationException.class,
                 () -> service.calculateBookingPrice(bookingRequestDtoForZeroDays, carToBook));
+        Assertions.assertEquals("Booking duration is too low", exc.getMessage());
     }
 }
