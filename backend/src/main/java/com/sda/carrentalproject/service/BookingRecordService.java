@@ -6,6 +6,7 @@ import com.sda.carrentalproject.domain.Client;
 import com.sda.carrentalproject.dto.CarBookingRequestDto;
 import com.sda.carrentalproject.exception.PeriodCalculationException;
 import com.sda.carrentalproject.repository.BookingRecordRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,7 @@ public class BookingRecordService {
         return records;
     }
 
+    @Transactional
     public BookingRecord createNewBooking(CarBookingRequestDto bookingRequestDto){
         log.info("Creating new booking record based on parameters: [{}]", bookingRequestDto);
         // find a client based on given id
