@@ -17,11 +17,11 @@ public class CarService {
 
     private final CarRepository carRepository;
 
-    public CarService(CarRepository carRepository){
+    public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
 
-    public List<Car> getAllCars(){
+    public List<Car> getAllCars() {
         log.info("getting all cars from repository");
 
         var result = carRepository.findAll();
@@ -32,19 +32,16 @@ public class CarService {
         return result;
     }
 
-    public Car saveCar(Car carEntity) {
-        log.info("creating new car: [{}]", carEntity);
+    public Car saveCar(Car carToBook) {
+        log.info("creating new car: [{}]", carToBook);
 
-        var result = carRepository.save(carEntity);
-        log.info("saved client: [{}]", result);
-
-        return result;
+        return carRepository.save(carToBook);
     }
 
-    public Car findCarWithId(long id){
+    public Car findCarWithId(long id) {
         log.info("Trying to find a car with id: [{}]", id);
 
-       return carRepository.findById(id)
+        return carRepository.findById(id)
                 .map(car -> {
                     log.info("Found car: [{}]", car);
                     return car;
@@ -52,4 +49,13 @@ public class CarService {
                 .orElseThrow(() -> new WrongCarIdException("No car with given id: [%s]".formatted(id)));
     }
 
+    public Car findAvailableCarWithId(long id) {
+        log.info("Trying to find available car with given id: [{}]", id);
+        return carRepository.findByIdAndAvailableTrue(id)
+                .map(car -> {
+                    log.info("Found available car: [{}]", car);
+                    return car;
+                })
+                .orElseThrow(() -> new WrongCarIdException("Car with given id: [%s] is unavailable!".formatted(id)));
+    }
 }
