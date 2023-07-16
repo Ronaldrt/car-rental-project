@@ -47,8 +47,8 @@ import {LoginService} from "./services/login-service/login.service";
     RouterModule.forRoot([
       {path: homePageUrl, component: HomePageComponent},
       {path: clientsPageUrl, component: ClientsComponent},
-      {path: carsPageUrl, component: CarsComponent},
       {path: loginPageUrl, component: LoginService},
+      {path: carsPageUrl, component: CarsComponent},
       {path: notFoundPageUrl, component: NotFoundPageComponent},
     ]),
     MatIconModule,
