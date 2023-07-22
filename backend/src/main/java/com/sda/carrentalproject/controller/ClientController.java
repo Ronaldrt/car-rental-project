@@ -5,6 +5,7 @@ import com.sda.carrentalproject.dto.ClientDto;
 import com.sda.carrentalproject.mapper.ClientMapper;
 import com.sda.carrentalproject.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,16 +18,32 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/api")
 // TODO: make it safe :)
-@CrossOrigin("*")
+// #bean-name.property - use property value on given bean
+//@CrossOrigin("#{clientController.allowedOrigin}")
+// works from Spring 6.0
+@CrossOrigin("${frontend.trusted-url}")
+
+
 public class ClientController {
 
     private final ClientService clientService;
 
     private final ClientMapper clientMapper;
 
-    public ClientController(ClientService clientService, ClientMapper clientMapper) {
+    private final String allowedOrigin;
+
+    public ClientController(ClientService clientService,
+                            ClientMapper clientMapper,
+                            @Value("${frontend.trusted-url}") String allowedOrigin) {
         this.clientService = clientService;
         this.clientMapper = clientMapper;
+        this.allowedOrigin = allowedOrigin;
+
+        log.info("Allowed origin: [{}]", allowedOrigin);
+    }
+
+    public String getAllowedOrigin() {
+        return allowedOrigin;
     }
 
     @GetMapping("/clients")
