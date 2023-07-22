@@ -4,6 +4,7 @@ import com.sda.carrentalproject.domain.Client;
 import com.sda.carrentalproject.dto.ClientDto;
 import com.sda.carrentalproject.mapper.ClientMapper;
 import com.sda.carrentalproject.service.ClientService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,7 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    ResponseEntity<ClientDto> createNewClient(@RequestBody ClientDto clientToSave,
+    ResponseEntity<ClientDto> createNewClient(@RequestBody @Valid ClientDto clientToSave,
                                               UriComponentsBuilder ucb) {
         log.info("trying to save new client: [{}]", clientToSave);
         Client createdClient = clientService.saveClient(clientMapper.fromDtoToEntity(clientToSave));
