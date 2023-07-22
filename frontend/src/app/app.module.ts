@@ -47,7 +47,7 @@ import {LoginService} from "./services/login-service/login.service";
     RouterModule.forRoot([
       {path: homePageUrl, component: HomePageComponent},
       {path: clientsPageUrl, component: ClientsComponent},
-      {path: loginPageUrl, component: LoginService},
+      {path: loginPageUrl, component: LoginComponent},
       {path: carsPageUrl, component: CarsComponent},
       {path: notFoundPageUrl, component: NotFoundPageComponent},
     ]),

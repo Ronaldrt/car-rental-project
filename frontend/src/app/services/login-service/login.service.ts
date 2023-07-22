@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {delay, Observable, of, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {adminRole, defaultUserLogin, defaultUserName, defaultUserSurname, emptyRole} from "../../models/authorization";
+
 
 @Injectable({
   providedIn: 'root'
