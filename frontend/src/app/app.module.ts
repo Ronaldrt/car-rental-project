@@ -21,7 +21,7 @@ import {carsPageUrl, clientsPageUrl, homePageUrl, loginPageUrl, notFoundPageUrl}
 import {ReactiveFormsModule} from "@angular/forms";
 import { CarsComponent } from './components/cars/cars.component';
 import { LoginComponent } from './components/login/login.component';
-import {LoginService} from "./services/login-service/login.service";
+import {authGuard, LoginService} from "./services/login-service/login.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import {LoginService} from "./services/login-service/login.service";
     RouterOutlet,
     RouterModule.forRoot([
       {path: homePageUrl, component: HomePageComponent},
-      {path: clientsPageUrl, component: ClientsComponent},
+      {path: clientsPageUrl, component: ClientsComponent, canActivate: [authGuard]},
       {path: loginPageUrl, component: LoginComponent},
       {path: carsPageUrl, component: CarsComponent},
       {path: notFoundPageUrl, component: NotFoundPageComponent},

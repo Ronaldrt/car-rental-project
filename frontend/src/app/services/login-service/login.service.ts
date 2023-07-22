@@ -1,7 +1,9 @@
-import {Component, Injectable} from '@angular/core';
+import {Component, inject, Injectable} from '@angular/core';
 import {delay, Observable, of, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {adminRole, defaultUserLogin, defaultUserName, defaultUserSurname, emptyRole} from "../../models/authorization";
+import {Router} from "@angular/router";
+import {loginPageUrl} from "../../models/links";
 
 
 @Injectable({
@@ -19,8 +21,16 @@ export class LoginService {
     private http: HttpClient
   ) { }
 
+  isAdmin(): boolean {
+    return this.userRole === adminRole;
+  }
+
   login(userLogin: string, pass: string): Observable<boolean>{
     console.log(`userLogin: ${userLogin}, password: ${pass}`)
+    let nullVariable = null;
+    let emptyVariable;
+    console.log(`nullvariable value: ${nullVariable}`)
+    console.log(`emptyVariable value: ${emptyVariable}`)
     return of(true)
       .pipe(
         delay(2000),
@@ -49,4 +59,16 @@ export class LoginService {
     this.userLogin = defaultUserLogin;
 
   }
+}
+
+export const authGuard = () => {
+  const loginService = inject(LoginService);
+  const router: Router = inject(Router)
+
+  if(loginService.isAdmin()){
+    return true;
+  }
+
+  // TODO:
+  return router.createUrlTree([loginPageUrl]);
 }
