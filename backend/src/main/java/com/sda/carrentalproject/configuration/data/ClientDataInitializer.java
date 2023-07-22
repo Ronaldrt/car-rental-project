@@ -27,7 +27,7 @@ public class ClientDataInitializer implements CommandLineRunner {
 
         Client client = Client.builder()
                 .name("mariusz")
-                .surname("p")
+                .surname("p.")
                 .phone("555-555-555")
                 .email("mp@gmail.com")
                 .address("poland")
