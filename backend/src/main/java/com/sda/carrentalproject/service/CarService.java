@@ -49,6 +49,16 @@ public class CarService {
                 .orElseThrow(() -> new WrongCarIdException("No car with given id: [%s]".formatted(id)));
     }
 
+    public List<Car> findAllCarsAvailableForBooking() {
+        log.info("trying to find all cars available for booking");
+        var availableCars = carRepository.findAllAndAvailableTrue();
+        log.info("number of available cars: [{}]", availableCars.size());
+        log.debug("available cars: {}", availableCars);
+        return availableCars;
+    }
+
+
+
     public Car findAvailableCarWithId(long id) {
         log.info("Trying to find available car with given id: [{}]", id);
         return carRepository.findByIdAndAvailableTrue(id)
