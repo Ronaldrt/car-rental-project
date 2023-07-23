@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
@@ -7,11 +7,11 @@ import {Client} from "../../models/client";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-clients',
+  selector: 'app-cd frclients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent implements OnInit, AfterViewInit {
   displayedColumns: Array<string> =
     ['id', 'name', 'surname', 'phone', 'email', 'address', 'hasDrivingLicense', 'registrationDateTime', 'dateOfBirth'];
   dataSource: MatTableDataSource<Client>;
@@ -72,8 +72,6 @@ export class ClientsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.fetchClients();
   }
 
@@ -103,5 +101,10 @@ export class ClientsComponent implements OnInit {
         this.clientForm.reset();
         this.fetchClients();
       });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
