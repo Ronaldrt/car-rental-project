@@ -30,15 +30,15 @@ public class CarController {
         this.carMapper = carMapper;
     }
 
-    @GetMapping("/cars")
-    List<CarDto> allCars() {
-        log.info("all cars endpoint");
-        var cars = carService.getAllCars();
-
-        return cars.stream()
-                .map(carMapper::fromEntityToDto)
-                .toList();
-    }
+//    @GetMapping("/cars")
+//    List<CarDto> allCars() {
+//        log.info("all cars endpoint");
+//        var cars = carService.getAllCars();
+//
+//        return cars.stream()
+//                .map(carMapper::fromEntityToDto)
+//                .toList();
+//    }
 
 
     @PostMapping("/cars")
@@ -53,5 +53,17 @@ public class CarController {
 
         return ResponseEntity.created(path)
                 .body(carMapper.fromEntityToDto(createdCar));
+    }
+
+
+    // /cars?available=true
+    @GetMapping("/cars")
+    public List<CarDto> getCars(@RequestParam Map<String, String> queryParams) {
+        log.info("getting cars");
+        log.info("query params: {}", queryParams);
+        return carService.findCarsBasedOnQueryParameters(queryParams)
+                .stream()
+                .map(car -> carMapper.fromEntityToDto(car))
+                .toList();
     }
 }
