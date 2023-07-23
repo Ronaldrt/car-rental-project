@@ -3,10 +3,12 @@ import com.sda.carrentalproject.domain.Car;
 import com.sda.carrentalproject.exception.WrongCarIdException;
 import com.sda.carrentalproject.repository.CarRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
+
+
 @Service
 @Slf4j
 public class CarService {
@@ -40,43 +42,44 @@ public class CarService {
                 })
                 .orElseThrow(() -> new WrongCarIdException("Car with given id: [%s] is unavailable!".formatted(id)));
     }
-    public List<Car> findAllCars() {
+    public Page<Car> findAllCars(Pageable pageable) {
         log.info("trying to find all cars");
-        var allCars = carRepository.findAll();
-        log.info("number of all cars: [{}]", allCars.size());
-        log.debug("all cars: {}", allCars);
-        return allCars;
+        var carResultPage = carRepository.findAll(pageable);
+        log.info("number of all cars: [{}]", carResultPage.getNumberOfElements());
+        log.debug("all cars on current page: {}", carResultPage.getContent());
+        return carResultPage;
     }
-    public List<Car> findAllCarsAvailableForBooking() {
+    public Page<Car> findAllCarsAvailableForBooking(Pageable pageable) {
         log.info("trying to find all cars available for booking");
-        var availableCars = carRepository.findAllByAvailable(true);
-        log.info("number of available cars: [{}]", availableCars.size());
-        log.debug("available cars: {}", availableCars);
+        var availableCars = carRepository.findAllByAvailable(true, pageable);
+        log.info("number of available cars: [{}]", availableCars.getNumberOfElements());
+        log.debug("available cars: {}", availableCars.getContent());
         return availableCars;
     }
 
-    public List<Car> findRentCars(){
+    public Page<Car> findRentCars(Pageable pageable){
         log.info("trying to find rent cars");
-        var rentCars = carRepository.findAllByAvailable(false);
-        log.info("number of rent cars: [{}]", rentCars.size());
-        log.debug("rent cars: [{}]", rentCars);
+        var rentCars = carRepository.findAllByAvailable(false, pageable);
+        log.info("number of rent cars: [{}]", rentCars.getNumberOfElements());
+        log.debug("rent cars: [{}]", rentCars.getContent());
         return rentCars;
 
     }
 
 
-    public List<Car> findCarsBasedOnQueryParameters(Map<String, String> queryParams) {
+    public Page<Car> findCarsBasedOnQueryParameters(Map<String, String> queryParams, Pageable pageable) {
         log.info("finding cars based on query parameters: {}", queryParams);
+        log.info("paging params: [{}]", pageable);
 
-        List<Car> result;
+        Page<Car> result;
         if(!queryParams.containsKey(availableKey)){
-            result = findAllCars();
+            result = findAllCars(pageable);
         }else{
             boolean available = Boolean.parseBoolean(queryParams.get(availableKey));
             if(available){
-                result = findAllCarsAvailableForBooking();
+                result = findAllCarsAvailableForBooking(pageable);
             }else{
-                result = findRentCars();
+                result = findRentCars(pageable);
             }
         }
         return result;
