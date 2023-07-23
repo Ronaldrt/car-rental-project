@@ -7,6 +7,7 @@ import com.sda.carrentalproject.dto.ClientDto;
 import com.sda.carrentalproject.mapper.CarMapper;
 import com.sda.carrentalproject.service.CarService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,7 +46,7 @@ public class CarController {
     ResponseEntity<CarDto> createNewCar(@RequestBody CarDto carToSave,
                                         UriComponentsBuilder ucb) {
         log.info("trying to save new car: [{}]", carToSave);
-        Car createdCar = carService.saveCar(carMapper.fromDtoToEntity(carToSave));
+        Car createdCar = carService.save(carMapper.fromDtoToEntity(carToSave));
 
         URI path = ucb.path("/api/cars/{id}")
                 .buildAndExpand(Map.of("id", createdCar.getId()))
@@ -58,9 +59,11 @@ public class CarController {
 
     // /cars?available=true
     @GetMapping("/cars")
-    public List<CarDto> getCars(@RequestParam Map<String, String> queryParams) {
+    public List<CarDto> getCars(@RequestParam Map<String, String> queryParams,
+                                Pageable pageable) {
         log.info("getting cars");
         log.info("query params: {}", queryParams);
+        log.info("paging parameters: [{}]", pageable);
         return carService.findCarsBasedOnQueryParameters(queryParams)
                 .stream()
                 .map(car -> carMapper.fromEntityToDto(car))

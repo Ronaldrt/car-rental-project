@@ -66,7 +66,7 @@ public class BookingRecordService {
                 .build();
 
         carToBook.setAvailable(false);
-        carService.saveCar(carToBook);
+        carService.save(carToBook);
 
         BookingRecord saved = bookingRecordRepository.save(newRecordToSave);
         log.info("Created booking record: [{}]", saved);
