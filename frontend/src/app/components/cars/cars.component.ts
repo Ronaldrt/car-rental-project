@@ -13,6 +13,9 @@ import {CarService} from "../../services/car/car.service";
   styleUrls: ['./cars.component.css']
 })
 export class CarsComponent implements OnInit{
+
+  carsArray: Array<Car> = []
+
   displayedColumns: Array<string> =
     ['id', 'brand', 'model', 'productionYear', 'color', 'available', 'priceList'];
   dataSource: MatTableDataSource<Car>;
@@ -66,6 +69,10 @@ export class CarsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.carService.getAllCars()
+      .subscribe(value => {
+        console.log(JSON.stringify(value, null, 2))
+      })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.fetchCars();

@@ -1,9 +1,9 @@
 package com.sda.carrentalproject.controller;
 
 import com.sda.carrentalproject.domain.Car;
-import com.sda.carrentalproject.domain.Client;
+
 import com.sda.carrentalproject.dto.CarDto;
-import com.sda.carrentalproject.dto.ClientDto;
+
 import com.sda.carrentalproject.mapper.CarMapper;
 import com.sda.carrentalproject.service.CarService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+
 import java.util.Map;
 
 @RestController
 @Slf4j
 @RequestMapping("/api")
-@CrossOrigin("*")
+@CrossOrigin("${frontend.trusted-url}")
 public class CarController {
 
     private final CarService carService;

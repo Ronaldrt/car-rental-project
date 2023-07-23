@@ -1,15 +1,15 @@
 export interface Car {
-  id: number;
+  id: number,
 
-  brand: string;
+  brand: string,
 
-  model: string;
+  model: string,
 
-  productionYear: string;
+  productionYear: string,
 
-  color: string;
+  color: string,
 
-  available: boolean;
+  available: boolean,
 
-  priceList: string;
+  pricePerDayInEuroCents: number
 }
