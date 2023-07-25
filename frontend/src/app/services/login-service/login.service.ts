@@ -22,9 +22,10 @@ export class LoginService {
   ) { }
 
   isAdmin(): boolean {
-    // return this.userRole === adminRole;
+
     // TODO: temporary change
-    return true;
+    // return true;
+    return this.userRole === adminRole;
   }
 
   login(userLogin: string, pass: string): Observable<boolean>{
@@ -71,6 +72,8 @@ export const authGuard = () => {
     return true;
   }
 
-  // TODO:
+
   return router.createUrlTree([loginPageUrl]);
+
+
 }
