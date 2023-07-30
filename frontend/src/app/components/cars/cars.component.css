@@ -9,7 +9,7 @@ table {
 
 label {
   display: block;
-  margin: .5em 0;
+  margin: 0.5em 0;
   font-weight: bold;
 }
 
@@ -17,16 +17,16 @@ label {
   color: red;
 }
 
-div{
-  padding: 10px;
-  margin: 10px;
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.1rem;
 }
 
 .example-card {
   max-width: 400px;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
+
+/* Add any other styles as needed */
+
