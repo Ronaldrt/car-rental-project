@@ -123,7 +123,7 @@
         <p>Very nice car. Price per day: {{ car.pricePerDayInEuroCents | currency }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>BOOK CAR</button>
+        <button mat-button (click)="openBookingDialog(car)">BOOK CAR</button>
       </mat-card-actions>
     </mat-card>
   </div>

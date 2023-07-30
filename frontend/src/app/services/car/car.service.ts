@@ -15,9 +15,6 @@ export class CarService {
   }
 
 
-
-
-
   getAllCars(): Observable<Array<Car>>{
     return this.http.get<any>(allCarsUrl)
       .pipe(

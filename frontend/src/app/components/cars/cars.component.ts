@@ -5,6 +5,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CarService} from "../../services/car/car.service";
+import {BookingComponent} from "../booking/booking.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -12,7 +14,7 @@ import {CarService} from "../../services/car/car.service";
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.css']
 })
-export class CarsComponent implements OnInit{
+export class CarsComponent implements OnInit {
 
   carsArray: Array<Car> = []
 
@@ -39,7 +41,7 @@ export class CarsComponent implements OnInit{
 
   constructor(
     private carService: CarService
-  ){
+    , private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(this.cars);
     console.log('inside cars component constructor')
   }
@@ -106,4 +108,20 @@ export class CarsComponent implements OnInit{
       });
   }
 
+  openBookingDialog(selectedCar: Car) {
+    const dialogRef = this.dialog.open(BookingComponent, {
+      width: '400px',
+      data: {
+        carToBookId: selectedCar.id, // Pass the car ID to the booking dialog
+        // Add other data if needed (e.g., client ID, other car details, etc.)
+      }
+    });
+
+    // Optionally, you can handle the result from the dialog after it's closed
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle the result here if needed (e.g., show a confirmation message)
+      console.log(result);
+    });
+
+  }
 }

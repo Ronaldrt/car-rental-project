@@ -1,0 +1,23 @@
+<!-- Implement the booking form in the template -->
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+  <!-- Add form controls for start date and end date -->
+  <mat-form-field>
+    <input matInput formControlName="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="endDate" [matDatepicker]="endDatePicker" placeholder="End Date">
+    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Add other form controls (car selection, client details) as needed -->
+
+  <!-- Display the calculated total price -->
+  <div>Total Price: {{ totalPrice | currency }}</div>
+
+  <button type="submit" mat-button color="primary">Book Car</button>
+  <button type="button" mat-button (click)="onCancel()">Cancel</button>
+</form>

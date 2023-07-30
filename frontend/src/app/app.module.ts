@@ -23,6 +23,11 @@ import { CarsComponent } from './components/cars/cars.component';
 import { LoginComponent } from './components/login/login.component';
 import {authGuard, LoginService} from "./services/login-service/login.service";
 import {MatCardModule} from "@angular/material/card";
+import { BookingComponent } from './components/booking/booking.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatNativeDateModule} from "@angular/material/core";
+
 
 @NgModule({
   declarations: [
@@ -34,30 +39,37 @@ import {MatCardModule} from "@angular/material/card";
     NotFoundPageComponent,
     CarsComponent,
     LoginComponent,
+    BookingComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatInputModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatButtonToggleModule,
-    RouterOutlet,
-    RouterModule.forRoot([
-      {path: homePageUrl, component: HomePageComponent},
-      {path: clientsPageUrl, component: ClientsComponent, canActivate: [authGuard]},
-      {path: loginPageUrl, component: LoginComponent},
-      {path: carsPageUrl, component: CarsComponent},
-      {path: notFoundPageUrl, component: NotFoundPageComponent},
-    ]),
-    MatIconModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatCardModule
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatInputModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatButtonToggleModule,
+        RouterOutlet,
+        RouterModule.forRoot([
+            {path: homePageUrl, component: HomePageComponent},
+            {path: clientsPageUrl, component: ClientsComponent, canActivate: [authGuard]},
+            {path: loginPageUrl, component: LoginComponent},
+            {path: carsPageUrl, component: CarsComponent},
+            {path: notFoundPageUrl, component: NotFoundPageComponent},
+        ]),
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
