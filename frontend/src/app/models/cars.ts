@@ -1,4 +1,5 @@
 export interface Car {
+
   id: number,
 
   brand: string,
@@ -12,4 +13,5 @@ export interface Car {
   available: boolean,
 
   pricePerDayInEuroCents: number
+
 }

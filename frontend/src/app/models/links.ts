@@ -4,6 +4,7 @@ export const allClientsUrl = `${serverUrl}/api/clients`
 export const createClientUrl = `${serverUrl}/api/clients`
 export const allCarsUrl = `${serverUrl}/api/cars`
 export const createCarUrl = `${serverUrl}/api/cars`
+export const createBookingUrl = `${serverUrl}/api/booking-records`
 
 // local links
 export const homePageUrl = ''

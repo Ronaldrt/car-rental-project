@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/api")
+@CrossOrigin("${frontend.trusted-url}")
 public class BookingRecordController {
 
     private final BookingRecordService bookingRecordService;

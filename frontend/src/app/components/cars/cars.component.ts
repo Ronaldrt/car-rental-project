@@ -109,10 +109,12 @@ export class CarsComponent implements OnInit {
   }
 
   openBookingDialog(selectedCar: Car) {
+    const clientId = 1;
     const dialogRef = this.dialog.open(BookingComponent, {
       width: '400px',
       data: {
-        carToBookId: selectedCar.id, // Pass the car ID to the booking dialog
+        carToBookId: selectedCar.id,
+        // Pass the car ID to the booking dialog
         // Add other data if needed (e.g., client ID, other car details, etc.)
       }
     });
